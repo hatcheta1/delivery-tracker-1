@@ -1,6 +1,7 @@
 Rails.application.routes.draw do
   devise_for :users
   root "deliveries#index"
+  
   # Routes for the Delivery resource:
 
   # CREATE

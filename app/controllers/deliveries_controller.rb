@@ -1,8 +1,12 @@
 class DeliveriesController < ApplicationController
   def index
-    matching_deliveries = Delivery.all
+    matching_deliveries = Delivery.where({ :id => current_user.id })
 
     @list_of_deliveries = matching_deliveries.order({ :created_at => :desc })
+
+    @waiting_on_deliveries = matching_deliveries.where("supposed_to_arrive_on > ?", Date.today)
+
+    @received_deliveries = matching_deliveries.where("supposed_to_arrive_on < ?", Date.today)
 
     render({ :template => "deliveries/index" })
   end
@@ -41,13 +45,13 @@ class DeliveriesController < ApplicationController
     the_delivery.description = params.fetch("query_description")
     the_delivery.details = params.fetch("query_details")
     the_delivery.supposed_to_arrive_on = params.fetch("query_supposed_to_arrive_on")
-    the_delivery.arrived = params.fetch("query_arrived", false)
+    the_delivery.arrived = params.fetch("query_arrived", true)
 
     if the_delivery.valid?
       the_delivery.save
       redirect_to("/deliveries/#{the_delivery.id}", { :notice => "Delivery updated successfully."} )
     else
-      redirect_to("/deliveries/#{the_delivery.id}", { :alert => the_delivery.errors.full_messages.to_sentence })
+      redirect_to("/deliveries", { :alert => the_delivery.errors.full_messages.to_sentence })
     end
   end
 
