@@ -3,17 +3,16 @@ Rails.application.routes.draw do
   root "deliveries#index"
   
   # Routes for the Delivery resource:
-
+  
   # CREATE
   post("/insert_delivery", { :controller => "deliveries", :action => "create" })
-          
+  
   # READ
   get("/deliveries", { :controller => "deliveries", :action => "index" })
   
   get("/deliveries/:path_id", { :controller => "deliveries", :action => "show" })
   
   # UPDATE
-  
   post("/modify_delivery/:path_id", { :controller => "deliveries", :action => "update" })
   
   # DELETE
