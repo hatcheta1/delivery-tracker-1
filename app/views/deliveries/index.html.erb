@@ -78,18 +78,12 @@
 
         <div>
           <form action="/modify_delivery/<%= a_delivery.id %>" method="post">
-            <input type="hidden" name="query_description" f="">
+            <input type="hidden" name="arrived" value="true">
 
-            <input type="hidden" name="query_supposed_to_arrive_on" value="<% a_delivery.supposed_to_arrive_on %>">
-
-            <input type="hidden" name="query_details" value="<% a_delivery.details %>">
-
-            <input type="hidden" name="query_arrived" value="true">
-
-            <button>
-              Mark as recieved
-            </button>
+            <button>Mark as received</button>
           </form>
+
+        
         </div>
       </li>
     <% end %>
