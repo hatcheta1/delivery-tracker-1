@@ -2,8 +2,6 @@ class DeliveriesController < ApplicationController
   def index
     matching_deliveries = Delivery.where({ :user_id => current_user.id })
 
-    #@list_of_deliveries = matching_deliveries.order({ :created_at => :desc })
-
     @waiting_on_deliveries = matching_deliveries.where({ :arrived => false })
 
     @received_deliveries = matching_deliveries.where({ :arrived => true })
